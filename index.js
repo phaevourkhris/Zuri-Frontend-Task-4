@@ -5,8 +5,9 @@ function convertFahrToCelsius(fahr){
   if(typeof(fahr)!== "boolean" && typeof(fahr)!== "undefined"){
     if(typeof(fahr)==="object"){
       if(Array.isArray(fahr)){// condition for Arrays eg: [1,2,3]
-        console.error(`[${fahr}] is not a valid number but a/an Array.`);
-        return (`[${fahr}] is not a valid number but a/an Array.`);
+        let paramType = "Array";
+        console.error(`${JSON.stringify(fahr)} is not a valid number but a/an ${paramType}.`);
+        return (`${JSON.stringify(fahr)} is not a valid number but a/an ${paramType}.`);
       }
       else{//condition for objects eg: {temp:0}
         console.error(`${JSON.stringify(fahr)} is not a valid number but a/an ${typeof(fahr)}.`);
@@ -15,14 +16,15 @@ function convertFahrToCelsius(fahr){
     }
     else{
       //checking to see that if the result of conversion is NaN or "Falsy"
-      if(Number.isNaN(coercedFahr) || (coercedFahr === 0 && typeof(fahr) !== "number")){
+      if(Number.isNaN(coercedFahr) || (coercedFahr === 0 && fahr !== "0" && typeof(fahr) !== "number")) {
       console.error(`${JSON.stringify(fahr)} is not a valid number but a/an ${typeof(fahr)}.`);
       return (`${JSON.stringify(fahr)} is not a valid number but a/an ${typeof(fahr)}.`);
      }
      else{ //for regular numbers
       let celsius = (coercedFahr - 32) * (5 / 9);
-      console.log(celsius.toFixed(4));
-      return (celsius.toFixed(4));
+      celsius = Number(celsius.toFixed(4));
+      console.log(celsius);
+      return (celsius);
      }
     }
   }
